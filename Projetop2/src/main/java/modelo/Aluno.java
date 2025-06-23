@@ -11,12 +11,12 @@ public class Aluno {
     private boolean ativo;
     private Curso curso;
 
-    // Default constructor
+    // 
     public Aluno() {
         this.ativo = true;
     }
     
-    // Constructor with all fields
+    // Constructor
     public Aluno(int id, String cpf, String nome, String email, LocalDate dataNascimento, boolean ativo, Curso curso) {
         this.id = id;
         this.cpf = cpf;
@@ -27,7 +27,7 @@ public class Aluno {
         this.curso = curso;
     }
 
-    // Constructor without ID (for new records)
+    // Constructor sem ID 
     public Aluno(String cpf, String nome, String email, LocalDate dataNascimento, boolean ativo, Curso curso) {
         this.cpf = cpf;
         this.nome = nome;

@@ -67,10 +67,10 @@ public class StyledComponents {
         JTextField textField = new JTextField();
         textField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         textField.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(189, 195, 199), 1),
+            BorderFactory.createLineBorder(new Color(189, 175, 179), 1),
             BorderFactory.createEmptyBorder(8, 12, 8, 12)
         ));
-        textField.setPreferredSize(new Dimension(250, 35));
+        textField.setPreferredSize(new Dimension(250, 40));
         return textField;
     }
     
@@ -81,7 +81,7 @@ public class StyledComponents {
             BorderFactory.createLineBorder(new Color(189, 195, 199), 1),
             BorderFactory.createEmptyBorder(8, 12, 8, 12)
         ));
-        spinner.setPreferredSize(new Dimension(250, 35));
+        spinner.setPreferredSize(new Dimension(250, 40));
         return spinner;
     }
     
@@ -92,7 +92,7 @@ public class StyledComponents {
             BorderFactory.createLineBorder(new Color(189, 195, 199), 1),
             BorderFactory.createEmptyBorder(8, 12, 8, 12)
         ));
-        comboBox.setPreferredSize(new Dimension(250, 35));
+        comboBox.setPreferredSize(new Dimension(250, 40));
         return comboBox;
     }
     

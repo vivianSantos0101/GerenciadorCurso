@@ -111,6 +111,7 @@ public class AlunoDAO {
         }
     }
 
+    // status inativo
     public void desabilitar(int idAluno) throws SQLException {
         String sql = "UPDATE Aluno SET Ativo_Aluno = FALSE WHERE ID_Aluno = ?";
         try (Connection conn = ConnectionFactory.getConnection();
@@ -120,6 +121,9 @@ public class AlunoDAO {
         }
     }
 
+    
+     // status ativo
+    
     public void reativar(int idAluno) throws SQLException {
         String sql = "UPDATE Aluno SET Ativo_Aluno = TRUE WHERE ID_Aluno = ?";
         try (Connection conn = ConnectionFactory.getConnection();
@@ -129,6 +133,8 @@ public class AlunoDAO {
         }
     }
 
+    //LISTA POR STATUS (TODOS OS ATIVOS E INATIVOS)
+    
     public List<Aluno> listarPorStatus(boolean ativos) throws SQLException {
         List<Aluno> lista = new ArrayList<>();
         String sql = "SELECT a.*, c.Nome_Curso, c.Carga_Horaria, c.Limite_Alunos, c.Ativo_Curso FROM Aluno a " +

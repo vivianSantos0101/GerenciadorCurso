@@ -311,7 +311,7 @@ public class CursoPainel extends JPanel {
             List<Curso> cursos = new CursoDAO().listarTodos();
             
             for (Curso curso : cursos) {
-                String status = curso.isAtivo() ? "✅ Ativo" : "❌ Inativo";
+                String status = curso.isAtivo() ? " Ativo" : " Inativo";
                 modeloTabela.addRow(new Object[]{
                     curso.getId(),
                     curso.getNome(),

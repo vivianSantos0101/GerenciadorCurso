@@ -28,7 +28,15 @@ public class TelaPrincipal extends JFrame {
                 setIconImage(icon.getImage());
                 System.out.println("Application icon loaded successfully from: " + resourceUrl);
             } else {
-                System.err.println("Could not find logo2.png in assets directory");
+                // Try alternative path
+                resourceUrl = getClass().getClassLoader().getResource("assets/logo2.ico");
+                if (resourceUrl != null) {
+                    ImageIcon icon = new ImageIcon(resourceUrl);
+                    setIconImage(icon.getImage());
+                    System.out.println("Application icon loaded successfully from: " + resourceUrl);
+                } else {
+                    System.err.println("Could not find logo2.png or logo2.ico in assets directory");
+                }
             }
         } catch (Exception e) {
             System.err.println("Erro ao carregar ícone da aplicação: " + e.getMessage());

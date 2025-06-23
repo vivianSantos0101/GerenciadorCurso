@@ -14,7 +14,7 @@ public class Curso {
         this.ativo = true;
     }
     
-    // Constructor with all fields
+    // Constructor 
     public Curso(int id, String nome, int cargaHoraria, int limiteAlunos, boolean ativo) {
         this.id = id;
         this.nome = nome;
@@ -23,7 +23,7 @@ public class Curso {
         this.ativo = ativo;
     }
 
-    // Constructor without ID (for new records)
+    // Constructor sem ID 
     public Curso(String nome, int cargaHoraria, int limiteAlunos, boolean ativo) {
         this.nome = nome;
         this.cargaHoraria = cargaHoraria;

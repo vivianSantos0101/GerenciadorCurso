@@ -57,7 +57,9 @@ public class RelatorioPainel extends JPanel {
         comboFiltro.addItem("Todos os Alunos");
         comboFiltro.addItem("Alunos Ativos");
         comboFiltro.addItem("Alunos Inativos");
-        comboFiltro.addItem("Por Curso");
+        comboFiltro.addItem("Cursos Ativos");
+        comboFiltro.addItem("Cursos Inativos");
+        
         controlsPanel.add(comboFiltro);
 
         // Buttons
@@ -139,6 +141,7 @@ public class RelatorioPainel extends JPanel {
         try {
             String filtro = (String) comboFiltro.getSelectedItem();
             List<Aluno> alunos = null;
+            List<Curso> cursos = null;
 
             switch (filtro) {
                 case "Todos os Alunos":
@@ -150,15 +153,20 @@ public class RelatorioPainel extends JPanel {
                 case "Alunos Inativos":
                     alunos = new AlunoDAO().listarPorStatus(false);
                     break;
-                case "Por Curso":
-                   
-                    alunos = new AlunoDAO().listarTodos();
+                case "Cursos Ativos":
+                    cursos = new CursoDAO().listarPorStatus(true);
+                    break;
+                case "Cursos Inativos":
+                    cursos = new CursoDAO().listarPorStatus(false);
                     break;
             }
 
             if (alunos != null) {
                 carregarTabelaRelatorio(alunos);
                 gerarEstatisticas(alunos);
+            } else if (cursos != null) {
+                carregarTabelaRelatorioCursos(cursos);
+                gerarEstatisticasCursos(cursos);
             }
 
         } catch (Exception e) {
@@ -167,6 +175,9 @@ public class RelatorioPainel extends JPanel {
     }
 
     private void carregarTabelaRelatorio(List<Aluno> alunos) {
+        // Change table columns for student data
+        String[] colunasAlunos = {"ID", "Nome", "CPF", "Email", "Curso", "Status"};
+        modeloTabela.setColumnIdentifiers(colunasAlunos);
         modeloTabela.setRowCount(0);
         
         for (Aluno aluno : alunos) {
@@ -179,6 +190,25 @@ public class RelatorioPainel extends JPanel {
                 aluno.getCpf(),
                 aluno.getEmail(),
                 cursoNome,
+                status
+            });
+        }
+    }
+
+    private void carregarTabelaRelatorioCursos(List<Curso> cursos) {
+        // Change table columns for course data
+        String[] colunasCursos = {"ID", "Nome", "Carga Horária", "Limite Alunos", "Status"};
+        modeloTabela.setColumnIdentifiers(colunasCursos);
+        modeloTabela.setRowCount(0);
+        
+        for (Curso curso : cursos) {
+            String status = curso.isAtivo() ? " Ativo" : " Inativo";
+            
+            modeloTabela.addRow(new Object[]{
+                curso.getId(),
+                curso.getNome(),
+                curso.getCargaHoraria() + " horas",
+                curso.getLimiteAlunos() + " alunos",
                 status
             });
         }
@@ -227,6 +257,46 @@ public class RelatorioPainel extends JPanel {
         areaEstatisticas.setText(stats.toString());
     }
 
+    private void gerarEstatisticasCursos(List<Curso> cursos) {
+        StringBuilder stats = new StringBuilder();
+        stats.append(" ESTATÍSTICAS DO RELATÓRIO DE CURSOS\n");
+        stats.append("\n\n");
+        
+        stats.append(" Total de Cursos: ").append(cursos.size()).append("\n");
+        
+        long ativos = cursos.stream().filter(Curso::isAtivo).count();
+        long inativos = cursos.size() - ativos;
+        
+        stats.append(" Cursos Ativos: ").append(ativos).append("\n");
+        stats.append(" Cursos Inativos: ").append(inativos).append("\n");
+        
+        if (cursos.size() > 0) {
+            double percentualAtivos = (double) ativos / cursos.size() * 100;
+            stats.append(" Percentual Ativos: ").append(String.format("%.1f%%", percentualAtivos)).append("\n\n");
+        }
+
+        // Calcular duração do curso
+        double cargaHorariaMedia = cursos.stream()
+            .mapToDouble(Curso::getCargaHoraria)
+            .average()
+            .orElse(0.0);
+        
+        stats.append(" Carga Horária Média: ").append(String.format("%.1f horas", cargaHorariaMedia)).append("\n");
+
+        // Calcular capacidade total de alunos
+        
+        int capacidadeTotal = cursos.stream()
+            .mapToInt(Curso::getLimiteAlunos)
+            .sum();
+        
+        stats.append(" Capacidade Total: ").append(capacidadeTotal).append(" alunos\n");
+
+        stats.append("\n Relatório gerado em: ");
+        stats.append(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
+
+        areaEstatisticas.setText(stats.toString());
+    }
+
     private void exportarTXT() {
         try {
             JFileChooser fileChooser = new JFileChooser();
@@ -252,12 +322,12 @@ public class RelatorioPainel extends JPanel {
                     writer.println("-".repeat(40));
                     writer.println();
                     
-                    // Get statistics from the text area
+                    // pega as estatisticas da text area
                     String estatisticas = areaEstatisticas.getText();
                     writer.println(estatisticas);
                     writer.println();
                     
-                    // Data section
+                    // Dados dos alunos
                     writer.println("DADOS DOS ALUNOS");
                     writer.println("-".repeat(40));
                     writer.println();

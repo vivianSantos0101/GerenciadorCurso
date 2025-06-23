@@ -55,6 +55,8 @@ public class ValidationUtil {
         }
     }
     
+    
+    // VALIDAR IDADE
     public static boolean isValidAge(LocalDate birthDate) {
         if (birthDate == null) {
             return false;
@@ -66,21 +68,31 @@ public class ValidationUtil {
         return period.getYears() >= 16 && period.getYears() <= 100; // validação de idade pra ver se nao é nenem nem vampiro
     }
     
+    
+    // VALIDAR NOME 
+    
     public static boolean isValidName(String name) {
-        return name != null && name.trim().length() >= 3 && name.trim().length() <= 100; // validação de nome
+        return name != null && name.trim().length() >= 3 && name.trim().length() <= 100; 
     }
+    
+    // NOME DE CURSO VALIDO
     
     public static boolean isValidCourseName(String name) {
-        return name != null && name.trim().length() >= 3 && name.trim().length() <= 50; // nome do curso
+        return name != null && name.trim().length() >= 3 && name.trim().length() <= 50; 
     }
     
-    public static boolean isValidWorkload(int workload) { //carga horaria
+    // CARGA HORARIA VALIDA
+    
+    public static boolean isValidWorkload(int workload) { 
         return workload >= 20 && workload <= 1000;
     }
     
-    public static boolean isValidStudentLimit(int limit) { // minimo de alunos por curso
+    //LIMITE DE ESTUDANTE
+    public static boolean isValidStudentLimit(int limit) { 
         return limit >= 1 && limit <= 500;
     }
+    
+    //FORMATAÇÃO DE CPF
     
     public static String formatCPF(String cpf) {
         if (cpf == null) return "";

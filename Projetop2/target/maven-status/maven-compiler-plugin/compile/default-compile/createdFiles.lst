@@ -1,9 +1,16 @@
 gui\CursoPainel.class
+gui\util\ValidationUtil.class
+gui\RelatorioPainel$1.class
 modelo\Aluno.class
+gui\TelaPrincipal.class
 dao\CursoDAO.class
 gui\RelatorioPainel.class
+gui\util\StyledComponents$1.class
+gui\CursoPainel$1.class
+gui\AlunoPainel$1.class
 dao\AlunoDAO.class
 modelo\Curso.class
 factory\ConnectionFactory.class
 factory\TestaConexão.class
 gui\AlunoPainel.class
+gui\util\StyledComponents.class

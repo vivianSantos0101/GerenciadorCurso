@@ -44,14 +44,14 @@ public class AlunoPainel extends JPanel {
         JPanel formPanel = StyledComponents.createCardPanel();
         formPanel.setLayout(new BorderLayout());
 
-        // Title
+        // Titulo
         JLabel titleLabel = new JLabel("Cadastro de Alunos");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 18));
         titleLabel.setForeground(StyledComponents.PRIMARY_COLOR);
         titleLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
         formPanel.add(titleLabel, BorderLayout.NORTH);
 
-        // Form fields
+        // Form pra escrever
         JPanel fieldsPanel = new JPanel(new GridBagLayout());
         fieldsPanel.setOpaque(false);
         GridBagConstraints gbc = new GridBagConstraints();
@@ -101,7 +101,7 @@ public class AlunoPainel extends JPanel {
         comboCurso = StyledComponents.createStyledComboBox();
         fieldsPanel.add(comboCurso, gbc);
 
-        // Status
+        // Status 
         gbc.gridx = 0; gbc.gridy = 5; gbc.fill = GridBagConstraints.NONE;
         fieldsPanel.add(StyledComponents.createStyledLabel("Status:"), gbc);
         
@@ -166,7 +166,7 @@ public class AlunoPainel extends JPanel {
         modeloTabela = new DefaultTableModel(colunas, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // Make table read-only
+                return false; 
             }
         };
 
@@ -195,6 +195,7 @@ public class AlunoPainel extends JPanel {
         return tablePanel;
     }
 
+    // CRIAR O ALUNO E SALVAR (PODE COLOCAR O CHECK ATIVO OU NAO) 
     private void salvarAluno() {
         try {
             if (!validarFormulario()) {
@@ -227,6 +228,8 @@ public class AlunoPainel extends JPanel {
         }
     }
 
+    // editar o aluninho 
+            
     private void editarAluno() {
         try {
             if (alunoSelecionado == null) {
@@ -260,6 +263,8 @@ public class AlunoPainel extends JPanel {
         }
     }
 
+    //delete o aluninho 
+    
     private void excluirAluno() {
         if (alunoSelecionado == null) {
             JOptionPane.showMessageDialog(this, "Selecione um aluno para excluir.", "Aviso", JOptionPane.WARNING_MESSAGE);
@@ -282,6 +287,8 @@ public class AlunoPainel extends JPanel {
         }
     }
 
+    //botaozinho pra fazer gracinha e limpar 
+    
     private void limparFormulario() {
         txtNome.setText("");
         txtEmail.setText("");
@@ -332,6 +339,7 @@ public class AlunoPainel extends JPanel {
         
         
         // criterios da professora: minimo 3 caracteres o nome do aluno. 
+        
         if (!ValidationUtil.isValidName(nome)) {
             JOptionPane.showMessageDialog(this, "Nome deve ter entre 3 e 100 caracteres.", "Validação", JOptionPane.WARNING_MESSAGE);
             txtNome.requestFocus();
@@ -389,6 +397,9 @@ public class AlunoPainel extends JPanel {
         }
     }
 
+    
+    // AQUI ELE VERIFICA SE É ATIVO ELE COLOCA NA TABELA DE ATIVO, SENAO COLOCA NO INATIVO
+    
     private void carregarAlunos() {
         try {
             modeloTabela.setRowCount(0);
