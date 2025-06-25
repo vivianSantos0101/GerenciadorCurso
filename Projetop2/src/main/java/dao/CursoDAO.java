@@ -9,7 +9,7 @@ import java.util.List;
 
 public class CursoDAO {
 
-    // CRIAR UM CURSO NOVO 
+    // CREATE  
     public void inserir(Curso curso) throws SQLException {
         String sql = "INSERT INTO Curso (Nome_Curso, Carga_Horaria, Limite_Alunos, Ativo_Curso) VALUES (?, ?, ?, ?)";
         try (Connection conn = ConnectionFactory.getConnection();
@@ -22,7 +22,7 @@ public class CursoDAO {
         }
     }
     
-    // EDITAR O CURSO, MUDAR AS INFO
+    // UPDATE 
 
     public void editar(Curso curso) throws SQLException {
         String sql = "UPDATE Curso SET Nome_Curso = ?, Carga_Horaria = ?, Limite_Alunos = ?, Ativo_Curso = ? WHERE ID_Curso = ?";
@@ -80,7 +80,7 @@ public class CursoDAO {
         return null;
     }
 
-    // DELETE O CURSO 
+    // DELETE  
     
     public void excluir(int idCurso) throws SQLException {
         String sql = "DELETE FROM Curso WHERE ID_Curso = ?";

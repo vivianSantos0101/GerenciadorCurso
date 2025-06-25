@@ -11,6 +11,8 @@ import java.util.List;
 
 public class AlunoDAO {
 
+    // CREATE
+    
     public void inserir(Aluno aluno) throws SQLException {
         String sql = "INSERT INTO Aluno (CPF_Aluno, Nome_Aluno, Email_Aluno, Data_Nasc, Ativo_Aluno, ID_Curso) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = ConnectionFactory.getConnection();
@@ -24,6 +26,8 @@ public class AlunoDAO {
             stmt.executeUpdate();
         }
     }
+    
+    // UPDATE
 
     public void editar(Aluno aluno) throws SQLException {
         String sql = "UPDATE Aluno SET CPF_Aluno = ?, Nome_Aluno = ?, Email_Aluno = ?, Data_Nasc = ?, Ativo_Aluno = ?, ID_Curso = ? WHERE ID_Aluno = ?";
@@ -102,6 +106,8 @@ public class AlunoDAO {
         return null;
     }
 
+    // DELETE 
+    
     public void excluir(int idAluno) throws SQLException {
         String sql = "DELETE FROM Aluno WHERE ID_Aluno = ?";
         try (Connection conn = ConnectionFactory.getConnection();

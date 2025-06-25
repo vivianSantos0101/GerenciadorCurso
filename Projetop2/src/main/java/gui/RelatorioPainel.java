@@ -40,18 +40,19 @@ public class RelatorioPainel extends JPanel {
         JPanel controlPanel = StyledComponents.createCardPanel();
         controlPanel.setLayout(new BorderLayout());
 
-        // Title
+        // Titulo
         JLabel titleLabel = new JLabel("Relatórios e Estatísticas");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 18));
         titleLabel.setForeground(StyledComponents.PRIMARY_COLOR);
         titleLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
         controlPanel.add(titleLabel, BorderLayout.NORTH);
 
-        // Controls
+        // Controle
         JPanel controlsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
         controlsPanel.setOpaque(false);
 
-        // Filter combo
+        // FILTROS DESEJADOS PARA GERAR RELATÓRIO
+        
         controlsPanel.add(StyledComponents.createStyledLabel("Filtrar por:"));
         comboFiltro = StyledComponents.createStyledComboBox();
         comboFiltro.addItem("Todos os Alunos");
@@ -64,8 +65,8 @@ public class RelatorioPainel extends JPanel {
 
         // Buttons
         JButton btnGerar = StyledComponents.createPrimaryButton("Gerar Relatório");
-        JButton btnExportar = StyledComponents.createSuccessButton("📄 Exportar TXT");
-        JButton btnAtualizar = StyledComponents.createPrimaryButton("🔄 Atualizar");
+        JButton btnExportar = StyledComponents.createSuccessButton("Exportar");
+        JButton btnAtualizar = StyledComponents.createPrimaryButton("Atualizar");
 
         btnGerar.addActionListener(e -> gerarRelatorio());
         btnExportar.addActionListener(e -> exportarTXT());
@@ -84,7 +85,7 @@ public class RelatorioPainel extends JPanel {
         JPanel contentPanel = new JPanel(new GridLayout(1, 2, 20, 0));
         contentPanel.setOpaque(false);
 
-        // Statistics panel
+        // Estatistica panel
         JPanel statsPanel = StyledComponents.createCardPanel();
         statsPanel.setLayout(new BorderLayout());
 
@@ -105,7 +106,8 @@ public class RelatorioPainel extends JPanel {
         JScrollPane statsScroll = StyledComponents.createStyledScrollPane(areaEstatisticas);
         statsPanel.add(statsScroll, BorderLayout.CENTER);
 
-        // Report table panel
+        // tabela de relatorio do lado direito
+        
         JPanel tablePanel = StyledComponents.createCardPanel();
         tablePanel.setLayout(new BorderLayout());
 
@@ -115,7 +117,8 @@ public class RelatorioPainel extends JPanel {
         tableTitle.setBorder(BorderFactory.createEmptyBorder(0, 0, 15, 0));
         tablePanel.add(tableTitle, BorderLayout.NORTH);
 
-        // Table
+        // divisoes da tabela
+        
         String[] colunas = {"ID", "Nome", "CPF", "Email", "Curso", "Status"};
         modeloTabela = new DefaultTableModel(colunas, 0) {
             @Override
@@ -136,6 +139,8 @@ public class RelatorioPainel extends JPanel {
 
         return contentPanel;
     }
+    
+    // metodo que gera o relatório e seus filtros nos CASES
 
     private void gerarRelatorio() {
         try {
@@ -175,7 +180,7 @@ public class RelatorioPainel extends JPanel {
     }
 
     private void carregarTabelaRelatorio(List<Aluno> alunos) {
-        // Change table columns for student data
+        // Carrega os dados dos alunos e atualiza na tabela
         String[] colunasAlunos = {"ID", "Nome", "CPF", "Email", "Curso", "Status"};
         modeloTabela.setColumnIdentifiers(colunasAlunos);
         modeloTabela.setRowCount(0);
@@ -196,7 +201,9 @@ public class RelatorioPainel extends JPanel {
     }
 
     private void carregarTabelaRelatorioCursos(List<Curso> cursos) {
-        // Change table columns for course data
+        
+        // carrega os dados do curso e atualiza na tabela de relatório
+        
         String[] colunasCursos = {"ID", "Nome", "Carga Horária", "Limite Alunos", "Status"};
         modeloTabela.setColumnIdentifiers(colunasCursos);
         modeloTabela.setRowCount(0);
@@ -214,6 +221,9 @@ public class RelatorioPainel extends JPanel {
         }
     }
 
+    
+    // metodo para gerar as estatisticas 
+    
     private void gerarEstatisticas(List<Aluno> alunos) {
         StringBuilder stats = new StringBuilder();
         stats.append(" ESTATÍSTICAS DO RELATÓRIO\n");
@@ -232,7 +242,8 @@ public class RelatorioPainel extends JPanel {
             stats.append(" Percentual Ativos: ").append(String.format("%.1f%%", percentualAtivos)).append("\n\n");
         }
 
-        // Statistics by course
+        // Estatistica por curso
+        
         stats.append(" DISTRIBUIÇÃO POR CURSO:\n");
         stats.append("\n");
         
@@ -296,6 +307,9 @@ public class RelatorioPainel extends JPanel {
 
         areaEstatisticas.setText(stats.toString());
     }
+    
+    
+    // METODO PARA EXPORTAR ARQUIVO .TXT
 
     private void exportarTXT() {
         try {
@@ -311,13 +325,13 @@ public class RelatorioPainel extends JPanel {
                 java.io.File file = fileChooser.getSelectedFile();
                 
                 try (PrintWriter writer = new PrintWriter(new FileWriter(file))) {
-                    // Header
+                    // Cabeçalho
                     writer.println("=".repeat(80));
                     writer.println("                    RELATÓRIO DE ALUNOS");
                     writer.println("=".repeat(80));
                     writer.println();
                     
-                    // Statistics section
+                    // ESTATISTICAS DO RELATORIO
                     writer.println("ESTATÍSTICAS DO RELATÓRIO");
                     writer.println("-".repeat(40));
                     writer.println();
@@ -332,12 +346,12 @@ public class RelatorioPainel extends JPanel {
                     writer.println("-".repeat(40));
                     writer.println();
                     
-                    // Table header
+                    // CABEÇALHO DA TABELA
                     writer.printf("%-5s %-30s %-15s %-25s %-20s %-10s%n", 
                         "ID", "Nome", "CPF", "Email", "Curso", "Status");
                     writer.println("-".repeat(120));
                     
-                    // Data rows
+                    // Dados em sequencia 
                     for (int i = 0; i < modeloTabela.getRowCount(); i++) {
                         Object id = modeloTabela.getValueAt(i, 0);
                         Object nome = modeloTabela.getValueAt(i, 1);
