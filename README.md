@@ -19,14 +19,16 @@ Interface:
 ![Captura de tela 2025-06-26 190651](https://github.com/user-attachments/assets/4c93e2b0-7bb7-43d0-99bf-5f54dbf54b45)
 
 
-<br> 
-
-![Captura de tela 2025-06-26 190651](https://github.com/user-attachments/assets/16dad346-2b00-4d3e-8f50-61038f225816)
 
 <br>
 
 
 ![Captura de tela 2025-06-26 190727](https://github.com/user-attachments/assets/741f0a27-ede2-4804-8951-ecb8b0e04a7b)
+
+<br>
+
+![Captura de tela 2025-06-26 190748](https://github.com/user-attachments/assets/f77e57d0-40f7-4b3a-9713-0b694bb13920)
+
 
 
 
